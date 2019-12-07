@@ -47,11 +47,12 @@
         android:textColor="@color/colorPrimaryDark"
         />
 
+
     <Button
         android:id="@+id/main_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/satici_olmak_istiyorum"
+        android:layout_above="@+id/seller_begin"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -66,17 +67,18 @@
 
 
     <TextView
-        android:id="@+id/satici_olmak_istiyorum"
+        android:id="@+id/seller_begin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Satıcı Olmak İstiyorum."
+        android:text="Satıcı mı olmak istiyorsunuz?"
         android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="19dp"
         android:layout_marginBottom="10dp"
         />
+
 
 </RelativeLayout>

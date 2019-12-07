@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.shopulse.Buyers.MainActivity;
 import com.example.shopulse.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,10 +25,11 @@ import java.util.HashMap;
 public class SellerRegistrationActivity extends AppCompatActivity
 {
     private Button sellerLoginBegin;
-    private EditText nameInput, phoneInput, emailInput, passwordInput, addressInput;
+    private EditText nameInput, phoneInput, emailInput, passwordInput,addressInput;
     private Button registerButton;
 
     private FirebaseAuth mAuth;
+
     private ProgressDialog loadingBar;
 
     @Override
@@ -39,27 +41,24 @@ public class SellerRegistrationActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         loadingBar = new ProgressDialog(this);
 
-        sellerLoginBegin = (Button) findViewById(R.id.satici_giris_btn);
-        nameInput =  findViewById(R.id.satici_isim);
-        phoneInput =  findViewById(R.id.satici_telefon);
-        emailInput =  findViewById(R.id.satici_email);
-        passwordInput =  findViewById(R.id.satici_sifre);
-        addressInput =  findViewById(R.id.satici_adres);
-        registerButton =  findViewById(R.id.satici_kayitol_btn);
+        sellerLoginBegin = findViewById(R.id.satici_zaten_hesap_btn);
+        nameInput = findViewById(R.id.satici_isim);
+        phoneInput = findViewById(R.id.satici_telefon);
+        emailInput = findViewById(R.id.satici_email);
+        passwordInput = findViewById(R.id.satici_sifre);
+        addressInput = findViewById(R.id.satici_adres);
+        registerButton = findViewById(R.id.satici_kayit_btn);
+        loadingBar = new ProgressDialog(this);
 
-
-
-
-        sellerLoginBegin.setOnClickListener(new View.OnClickListener()
+        sellerLoginBegin.setOnClickListener(new View.OnClickListener() 
         {
             @Override
-            public void onClick(View v)
+            public void onClick(View v) 
             {
                 Intent intent = new Intent(SellerRegistrationActivity.this, SellerLoginActivity.class);
                 startActivity(intent);
             }
         });
-        
         
         registerButton.setOnClickListener(new View.OnClickListener() 
         {
@@ -71,24 +70,22 @@ public class SellerRegistrationActivity extends AppCompatActivity
         });
     }
 
-    
-    
-    
     private void registerSeller() 
     {
         final String name = nameInput.getText().toString();
         final String phone = phoneInput.getText().toString();
         final String email = emailInput.getText().toString();
-        String password = passwordInput.getText().toString();
+        final String password = passwordInput.getText().toString();
         final String address = addressInput.getText().toString();
-        
         
         if (!name.equals("") && !phone.equals("") && !email.equals("") && !password.equals("") && !address.equals(""))
         {
-            loadingBar.setTitle("Satıcı Hesabı Oluşturuluyor");
+            loadingBar.setTitle("Satıcı Hesabı Oluştur");
             loadingBar.setMessage("Bilgileriniz Kontrol Edilirken Lütfen Bekleyiniz.");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
+
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                     {
@@ -102,21 +99,26 @@ public class SellerRegistrationActivity extends AppCompatActivity
 
                                 String sid = mAuth.getCurrentUser().getUid();
 
-                                HashMap<String, Object> sellerMap = new HashMap<>();
+                                HashMap<String,Object> sellerMap =new HashMap<>();
                                 sellerMap.put("sid", sid);
                                 sellerMap.put("phone", phone);
                                 sellerMap.put("email", email);
                                 sellerMap.put("address", address);
                                 sellerMap.put("name", name);
 
-                                rootRef.child("Sellers").child("sid").updateChildren(sellerMap)
+                                rootRef.child("Sellers").child(sid).updateChildren(sellerMap)
                                         .addOnCompleteListener(new OnCompleteListener<Void>()
                                         {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task)
                                             {
                                                 loadingBar.dismiss();
-                                                Toast.makeText(SellerRegistrationActivity.this, "Başarıyla kayıt oldunuz. Tebrikler...", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SellerRegistrationActivity.this, "Başarılı bir şekilde kayıt oldunuz.", Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(SellerRegistrationActivity.this, SellerHomeActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                                finish();
                                             }
                                         });
                             }
@@ -125,7 +127,7 @@ public class SellerRegistrationActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(this, "Lütfen satıcı kayıt formunu doldurun", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lütfen kayıt formunu doldurun", Toast.LENGTH_SHORT).show();
         }
     }
 }
