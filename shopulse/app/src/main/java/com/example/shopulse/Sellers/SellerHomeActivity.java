@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.shopulse.Admin.SellersProductCategoryActivity;
 import com.example.shopulse.Buyers.MainActivity;
 import com.example.shopulse.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,7 +34,8 @@ public class SellerHomeActivity extends AppCompatActivity
                 return true;
 
                 case R.id.navigation_add:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    Intent intentCate = new Intent(SellerHomeActivity.this, SellersProductCategoryActivity.class);
+                    startActivity(intentCate);
                     return true;
 
                 case R.id.navigation_logout:
@@ -41,9 +43,9 @@ public class SellerHomeActivity extends AppCompatActivity
                     mAuth = FirebaseAuth.getInstance();
                     mAuth.signOut();
 
-                    Intent intent = new Intent(SellerHomeActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    Intent intentMain = new Intent(SellerHomeActivity.this, MainActivity.class);
+                    intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intentMain);
                     finish();
                     return true;
             }

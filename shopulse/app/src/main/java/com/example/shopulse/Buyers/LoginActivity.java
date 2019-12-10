@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shopulse.Admin.AdminKategoriActivity;
+import com.example.shopulse.Admin.SellersProductCategoryActivity;
 import com.example.shopulse.Model.Users;
 import com.example.shopulse.Prevalent.Prevalent;
 import com.example.shopulse.R;
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity
                                 Toast.makeText(LoginActivity.this, "Hoşgeldin Admin Giriş Başarılı", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
-                                Intent intent = new Intent(LoginActivity.this, AdminKategoriActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, SellersProductCategoryActivity.class);
                                 startActivity(intent);
                             }
                             else if (parentDbName.equals("Users"))
