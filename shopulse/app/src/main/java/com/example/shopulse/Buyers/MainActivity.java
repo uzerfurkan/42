@@ -15,7 +15,10 @@ import android.widget.Toast;
 import com.example.shopulse.Model.Users;
 import com.example.shopulse.Prevalent.Prevalent;
 import com.example.shopulse.R;
+import com.example.shopulse.Sellers.SellerHomeActivity;
 import com.example.shopulse.Sellers.SellerRegistrationActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,6 +94,22 @@ import io.paperdb.Paper;
             }
         }
     }
+
+     @Override
+     protected void onStart()
+     {
+         super.onStart();
+
+         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+         if (firebaseUser == null)
+         {
+             Intent intent = new Intent(MainActivity.this, SellerHomeActivity.class);
+             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+             startActivity(intent);
+             finish();
+         }
+     }
 
      private void AllowAccess(final String phone, final String password)
      {

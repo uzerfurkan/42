@@ -55,15 +55,14 @@
         android:id="@+id/seller_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/seller_login_password"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
         android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
         android:text="Giriş Yap"
         android:textAllCaps="false"
-        android:textSize="18sp"
-        />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>

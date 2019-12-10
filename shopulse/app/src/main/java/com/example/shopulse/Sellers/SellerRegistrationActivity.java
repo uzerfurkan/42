@@ -106,7 +106,7 @@ public class SellerRegistrationActivity extends AppCompatActivity
                                 sellerMap.put("address", address);
                                 sellerMap.put("name", name);
 
-                                rootRef.child("Sellers").child("sid").updateChildren(sellerMap)
+                                rootRef.child("Sellers").child(sid).updateChildren(sellerMap)
                                         .addOnCompleteListener(new OnCompleteListener<Void>()
                                         {
                                             @Override
@@ -114,6 +114,11 @@ public class SellerRegistrationActivity extends AppCompatActivity
                                             {
                                                 loadingBar.dismiss();
                                                 Toast.makeText(SellerRegistrationActivity.this, "Başarıyla Kayıt Oldunuz.", Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(SellerRegistrationActivity.this, SellerHomeActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                                finish();
                                             }
                                         });
                             }
